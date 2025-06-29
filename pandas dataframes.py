@@ -38,3 +38,45 @@ print(dataframe2[["Name","Age","Sex"]])
 # filtering rows
 print(dataframe2[dataframe2["Age"]<18]) # argument is the condition
 print(dataframe2[(dataframe2["Age"]<18) & (dataframe2["Sex"] == "female")]) # & for and, | for or
+
+# slicing (index spaced)
+print(dataframe2.iloc[500:505,2:5]) # starting row:ending row, starting column:ending column (ending index not included)
+
+# conditional slicing
+print(dataframe2.loc[dataframe2["Age"]>18,["Name","Age","Fare"]]) # rows given as a condition, columns fetched by names
+print(dataframe2.loc[500:505,["Name","Age","Fare"]]) # here rows are given by index (includes ending index)
+
+# changing values
+dataframe2.loc[0:2,["Name"]] = ["Urvi","Urja","Aanya"]
+print(dataframe2.head())
+
+# adding more columns
+dataframe2["Discounted Fare"] = dataframe2["Fare"]/2
+print(dataframe2.head())
+
+# creating a csv file
+dataframe2.to_csv("updated titanic.csv")
+
+# renaming rows or columns
+dataframe2.rename(columns={"Sex":"Gender","Fare":"Ticket"},inplace=True) # inplace means storing in original dataframe
+print(dataframe2)
+
+# sorting
+print(dataframe2.sort_values("Age",ascending=True))
+
+# replacing (every occurence of one value changes to something else)
+dataframe2["Gender"].replace({"male":"m","female":"f"},inplace=True)
+print(dataframe2)
+
+# grouping, then aggregation function (min, max, sum ,median, mean)
+pclass_min = dataframe2.groupby("Pclass").min() # pclass is now the index
+print(pclass_min)
+pclass = dataframe2.groupby(["Pclass","Gender"])[["Age","Ticket"]].mean() # both pclass and gender become indexes
+print(pclass)
+
+# aggregation function
+print(dataframe2.agg({"Age":["mean","min","max"], "Name":["count"], "Ticket":"median"}))
+
+# operations on text data
+dataframe2["Last Name"] = dataframe2["Name"].str.split().str.get(-1) # getting last names, .str() manipulates specifically text data
+print(dataframe2)
