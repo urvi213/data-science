@@ -1,4 +1,6 @@
 import pandas as pd
+
+
 iris = pd.read_csv(r"C:\Users\user\Desktop\current coding\data science\iris.csv")
 print(iris)
 print(iris.shape)
@@ -29,3 +31,15 @@ print("")
 print(setosa["petal_width"].mean())
 print(setosa["petal_width"].min())
 print(setosa["petal_width"].max())
+
+print("")
+iris["code"] = iris["species"].replace({"setosa":1,"versicolor":2,"virginica":3})
+print(iris)
+print("")
+print(iris.sort_values("petal_length",ascending=True))
+print(iris.groupby("species").mean())
+iris["species"] = iris["species"].str.upper()
+print(iris)
+print(iris.agg({"sepal_length":["mean","median"],"sepal_width":["mean","median"]}))
+iris.rename(columns={"sepal_width":"sepal width","sepal_length":"sepal length","petal_width":"petal width","petal_length":"petal length"},inplace=True)
+print(iris)
