@@ -32,3 +32,24 @@ fig2 = go.Figure(
 # monthly cases
 month_sums = time_data[["New_cases","Cumulative_cases","New_deaths","Cumulative_deaths","Year","Month"]].groupby(["Year","Month"]).sum()
 print(month_sums)
+
+# hw
+
+#print(month_sums.iloc[0:12])
+
+hw1 = go.Figure(
+    data=[
+        go.Bar(name="2020 new cases",x=month_sums.loc[2020].index,y=month_sums["New_cases"]),
+        go.Bar(name="2020 new deaths",x=month_sums.loc[2020].index,y=month_sums["New_deaths"])
+    ])
+hw1.write_html("hw1.html",auto_open=True)
+
+print(month_sums.loc[2020])
+
+
+hw2 = go.Figure(
+    data=[
+        go.Bar(name="2021 new cases",x=month_sums.loc[2021].index,y=month_sums["New_cases"]),
+        go.Bar(name="2021 new deaths",x=month_sums.loc[2021].index,y=month_sums["New_deaths"])
+    ])
+hw2.write_html("hw2.html",auto_open=True)
